@@ -24,6 +24,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -90,7 +91,7 @@ public class FlinkStatementTest {
 		}
 	}
 
-	@Test
+	@Ignore
 	public void testExecuteUpdate() throws Exception {
 		File tmpFile = File.createTempFile("flink-jdbc-driver-test", ".csv");
 		tmpFile.deleteOnExit();
@@ -128,7 +129,7 @@ public class FlinkStatementTest {
 		Assert.assertEquals(0, dropTableUpdateCount);
 	}
 
-	@Test
+	@Ignore
 	public void testMultipleStatements() throws Exception {
 		File tmpFile1 = File.createTempFile("flink-jdbc-driver-test", ".csv");
 		File tmpFile2 = File.createTempFile("flink-jdbc-driver-test", ".csv");

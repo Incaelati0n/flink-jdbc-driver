@@ -111,7 +111,7 @@ public class FlinkJdbcDriverTestingGateway {
 	private static Configuration getEndpointConfig() {
 		Configuration config = new Configuration();
 		config.setString(RestOptions.ADDRESS, "localhost");
-		config.setString(RestOptions.BIND_PORT, "0-65535");
+		config.setString(RestOptions.BIND_PORT, "8083-8090");
 		return config;
 	}
 }
