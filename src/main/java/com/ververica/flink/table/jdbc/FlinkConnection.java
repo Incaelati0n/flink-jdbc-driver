@@ -224,7 +224,16 @@ public class FlinkConnection implements Connection {
 
 	@Override
 	public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
-		throw new SQLFeatureNotSupportedException("FlinkConnection#createStatement is not supported");
+		/* To implement;
+		Error msg on:
+			resultSetConcurrency != ResultSet.CONCUR_READ_ONLY
+			resultSetType == ResultSet.TYPE_SCROLL_SENSITIVE
+		Once gateway version supports needed parameters. */
+
+		if (isClosed()) {
+			throw new SQLException("Connection is closed");
+		}
+		return new FlinkStatement(session, this);
 	}
 
 	@Override

@@ -934,7 +934,17 @@ public class FlinkDatabaseMetaData implements DatabaseMetaData {
 
 	@Override
 	public ResultSet getImportedKeys(String catalog, String schema, String table) throws SQLException {
-		throw new SQLFeatureNotSupportedException("FlinkDatabaseMetaData#getImportedKeys is not supported");
+		// default imported keys result (hard coded to default_key_table information, to be changed if gateway supports request)
+		connection.setCatalog("default_catalog");
+		connection.setSchema("default_database");
+		StatementExecuteResponseBody response = getImmediateSingleResponse("DESCRIBE default_key_table");
+		// we use raw results here to get table schema
+		return new FlinkResultSet(
+				session,
+				RestUtils.getEitherJobIdOrResultSet(response.getResults().get(0)),
+				ResultHandlerFactory.getDefaultResultHandler(),
+				0,
+				null);
 	}
 
 	@Override
@@ -954,7 +964,17 @@ public class FlinkDatabaseMetaData implements DatabaseMetaData {
 
 	@Override
 	public ResultSet getIndexInfo(String catalog, String schema, String table, boolean unique, boolean approximate) throws SQLException {
-		throw new SQLFeatureNotSupportedException("FlinkDatabaseMetaData#getIndexInfo is not supported");
+		// default index result information (hard coded to default_table information, to be changed if gateway supports request)
+		connection.setCatalog("default_catalog");
+		connection.setSchema("default_database");
+		StatementExecuteResponseBody response = getImmediateSingleResponse("DESCRIBE default_table");
+		// we use raw results here to get table schema
+		return new FlinkResultSet(
+				session,
+				RestUtils.getEitherJobIdOrResultSet(response.getResults().get(0)),
+				ResultHandlerFactory.getDefaultResultHandler(),
+				0,
+				null);
 	}
 
 	@Override
